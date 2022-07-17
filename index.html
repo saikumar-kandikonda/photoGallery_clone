@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>codedamn Project</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+    <!-- start writing your code -->
+    <h1 class="heading">codedamn - Multiverse Photo Gallery Project</h1>
+    <div class="gallery">
+        <!-- content will be loaded dynamically using Javascript -->
+    </div>
+
+    <div class="footer">
+        <p class="multiverse">MULTIVERSE <span>BY HMTL5 UP</span> </p>
+        <p class="about">ABOUT<span>&#9432;</span></p>
+
+        <div class="modal">
+            <div class="modalheader">
+                <button class="closeBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px" viewBox="0 0 64 64" zoomAndPan="disable">
+	<style>
+		line {
+			stroke: #242629;
+			stroke-width: 1.5px;
+		}
+	</style>
+	<line x1="20" y1="20" x2="44" y2="44" />
+	<line x1="20" y1="44" x2="44" y2="20" />
+</svg>
+</button>
+            </div>
+            <div class="modalimageSection">
+                <button class="leftArrow" ><</button>
+                <img src="/assets/images/11.jpg" class="modalImg">
+                <button class="rightArrow" >></button>
+            </div>
+            <div class="modalFooter">
+                <p class="modalTitle"></p>
+                <p class="modalDesc"></p>
+            </div>
+        </div>
+</body>
+<script>
+    // This array has all the content related to cards
+    let cardsArray=[
+    {
+    cardTitle: "1- Aut eveniet velit",
+    cardDesc: "1- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "01.jpg"
+    },
+    {
+    cardTitle: "2- Aut eveniet velit",
+    cardDesc: "2- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "02.jpg"
+    },
+     {
+    cardTitle: "3- Aut eveniet velit",
+    cardDesc: "3- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "03.jpg"
+    },
+    {
+    cardTitle: "4- Aut eveniet velit",
+    cardDesc: "4- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "04.jpg"
+    },
+     {
+    cardTitle: "5- Aut eveniet velit",
+    cardDesc: "5- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "05.jpg"
+    },
+    {
+    cardTitle: "6- Aut eveniet velit",
+    cardDesc: "6- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "06.jpg"
+    },
+    {
+    cardTitle: "7- Aut eveniet velit",
+    cardDesc: "7- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "07.jpg"
+    },
+     {
+    cardTitle: "8- Aut eveniet velit",
+    cardDesc: "8- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "08.jpg"
+    },
+    {
+    cardTitle: "9- Aut eveniet velit",
+    cardDesc: "9- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "09.jpg"
+    },
+     {
+    cardTitle: "10- Aut eveniet velit",
+    cardDesc: "10- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "10.jpg"
+    },
+    {
+    cardTitle: "11- Aut eveniet velit",
+    cardDesc: "11- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "11.jpg"
+    },
+    {
+    cardTitle: "12- Aut eveniet velit",
+    cardDesc: "12- Lorem ipsum dolor sit amet. Et modi tempora sed voluptatum conse",
+    cardImageName: "12.jpg"
+    },
+    ];
+
+//basically, we're looping each item in array and rendering in UI
+                cardsArray.map((card,index)=>{
+                const Cards = document.createElement("div"); 
+                Cards.className = "cards";
+                Cards.innerHTML = `
+                    <img src="/assets/images/${card.cardImageName}" cardIndex=${index} class="cardImg" title="${card.cardTitle}"                        onClick="openModal(${index})" alt="${card.cardDesc}">
+                        <p class="cardTitle">${card.cardTitle} </p>
+                        <p class="cardDesc">${card.cardDesc} </p>`
+            document.querySelector(".gallery").appendChild(Cards);
+                });
+
+
+        //When user clicks on Close icon this function will run
+
+            let closeBtn=document.querySelector('.closeBtn');
+            let modal=document.querySelector('.modal');
+            closeBtn.addEventListener('click',()=>{
+            modal.setAttribute("style", "display:none");
+            });
+     
+     //when we click on each image, modal will be opened 
+    function openModal(cardIndex){ 
+        cardsArray.filter((card,index)=>{
+             if (cardIndex === index) {
+               
+            modal.setAttribute("style", "display:block");
+            document.querySelector(".modalDesc").innerText=card.cardDesc;
+            document.querySelector(".modalTitle").innerHTML=card.cardTitle;
+            document.querySelector(".modalImg").src="/assets/images/"+card.cardImageName; 
+            document.querySelector(".modalImg").setAttribute("index",+index);
+            document.querySelector(".leftArrow").setAttribute("onClick",`PrevNextFn(${index},"decrement")`);
+            document.querySelector(".rightArrow").setAttribute("onClick",`PrevNextFn(${index},"increment")`);
+             }
+        })
+        
+    
+    }
+
+    function PrevNextFn(index,mode)
+    {
+        if(mode==="increment"){
+            openModal(index+1);
+        }else {
+                if(index===0)
+                {alert("This is the first item, please try clicking forward arrow") }
+                else
+                {
+                openModal(index-1);
+                }
+
+        }
+       
+         
+    }
+</script>
+
+</html>
